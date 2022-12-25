@@ -3,14 +3,11 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { loginRoute } from "../utils/APIRoutes";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import EmailIcon from "@mui/icons-material/Email";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -57,8 +54,8 @@ export default function SignIn() {
     onSubmit: async (values, { resetForm }) => {
       try {
         const login = await axios.post(`${url}/login`, values);
-        localStorage.setItem("login_auth_token", login.data.token);
-        localStorage.setItem("role", login.data.typeofUser);
+        window.sessionStorage.setItem("login_auth_token", login.data.token);
+        window.sessionStorage.setItem("id", login.data.id);
         resetForm({ values: "" });
         toast.success(login.data.message);
         setTimeout(() => {
