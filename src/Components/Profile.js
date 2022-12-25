@@ -9,22 +9,19 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import EmailIcon from "@mui/icons-material/Email";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { url } from "../Api/api";
-
+import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 
 const theme = createTheme();
 
 const Profile = () => {
-
   let doLogout = () => {
     sessionStorage.removeItem("login_auth_token");
     navigate("/");
   };
-
 
   const navigate = useNavigate();
   const toastOptions = {
@@ -75,8 +72,9 @@ const Profile = () => {
       headers: { authorization: `Bearer ${token}` },
     });
     //Just to jump to different route
-    if (res.status === 200) navigate("/home");
-    else if (res.data.statusCode === 401) {
+    if (res.status === 200) {
+      alert("Profile Updated");
+    } else if (res.data.statusCode === 401) {
       alert(res.data.message);
     } else {
       alert(res.data.message);
@@ -85,32 +83,33 @@ const Profile = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        style={{ textAlign: "left", marginLeft: "50px" }}
+      >
+        <Button
+          variant="outlined"
+          color="error"
+          type="submit"
+          onClick={() => doLogout()}
+          // variant="contained"
+          sx={{ mt: 2, ml: 145 }}
+        >
+          Logout
+        </Button>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 1,
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "left",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <EmailIcon />
-            <Button
-              type="submit"
-              fullWidth
-              onClick={() =>doLogout() }
-              // onSubmit={() =>handleSubmit()}
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              logout
-            </Button>
-            
-          </Avatar>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
           <Typography component="h1" variant="h5">
-            Profile
+            Edit Profile
           </Typography>
           <Box component="form" onSubmit={() => handleSubmit()} sx={{ mt: 1 }}>
             <TextField
@@ -118,6 +117,7 @@ const Profile = () => {
               required
               fullWidth
               id="email"
+              variant="standard"
               label="Email"
               value={email}
               name="email"
@@ -130,38 +130,46 @@ const Profile = () => {
               fullWidth
               name="Mobile"
               label="Mobile"
+              variant="standard"
               type="Mobile"
-              id="Mobile"
               onChange={(e) => setMobile(e.target.value)}
               autoComplete="current-password"
             />
             <TextField
               margin="normal"
               required
+              variant="standard"
               fullWidth
               name="DOB"
               label="DOB"
               type="DOB"
               id="DOB"
               onChange={(e) => setDOB(e.target.value)}
-              // autoComplete="current-password"
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="Gender"
-              label="Gender"
-              type="Gender"
-              id="Gender"
+
+            <FormLabel id="demo-row-radio-buttons-group-label">
+              Gender
+            </FormLabel>
+            <RadioGroup
+              row
               onChange={(e) => setGender(e.target.value)}
-              autoComplete="current-password"
-            />
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+            >
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+            </RadioGroup>
 
             <TextField
               margin="normal"
+              typeof="number"
               required
               fullWidth
+              variant="standard"
               name="Age"
               label="Age"
               type="Age"
@@ -169,35 +177,16 @@ const Profile = () => {
               onChange={(e) => setAge(e.target.value)}
               autoComplete="current-password"
             />
-            {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
             <Button
               type="submit"
-              fullWidth
               onClick={() => handleSubmit()}
-              // onSubmit={() =>handleSubmit()}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Update
             </Button>
-            <Grid container>
-              <Grid item xs>
-                {/* <Link href="#" variant="body2">
-                Forgot password?
-              </Link> */}
-              </Grid>
-              <Grid item>
-                {/* <Link to="/signup">
-                {"Don't have an account? Sign Up"}
-              </Link> */}
-              </Grid>
-            </Grid>
           </Box>
         </Box>
-        
       </Container>
       <ToastContainer />
     </ThemeProvider>
