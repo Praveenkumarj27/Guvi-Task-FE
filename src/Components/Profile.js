@@ -32,6 +32,7 @@ const Profile = () => {
     theme: "dark",
   };
   let params = useParams();
+  let [username, setusername] = useState("")
   let [gender, setGender] = useState("");
   let [DOB, setDOB] = useState("");
   let [age, setAge] = useState("");
@@ -59,6 +60,7 @@ const Profile = () => {
 
   let handleSubmit = async () => {
     let data = {
+      username,
       email,
       mobile,
       DOB,
@@ -112,6 +114,18 @@ const Profile = () => {
             Edit Profile
           </Typography>
           <Box component="form" onSubmit={() => handleSubmit()} sx={{ mt: 1 }}>
+          {/* <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              variant="standard"
+              label="Name"
+              value={username}
+              name="name"
+              autoComplete="name"
+              onChange={(e) => setusername(e.target.value)}
+            /> */}
             <TextField
               margin="normal"
               required
