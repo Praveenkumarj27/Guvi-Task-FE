@@ -54,12 +54,12 @@ export default function SignIn() {
     onSubmit: async (values, { resetForm }) => {
       try {
         const login = await axios.post(`${url}/login`, values);
-        window.sessionStorage.setItem("login_auth_token", login.data.token);
+        window.sessionStorage.setItem("token", login.data.token);
         window.sessionStorage.setItem("id", login.data.id);
         resetForm({ values: "" });
         toast.success(login.data.message);
         setTimeout(() => {
-          navigate("/profile");
+          navigate("/editprofile");
         }, 3000);
       } catch (error) {
         console.log(error);

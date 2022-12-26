@@ -31,7 +31,7 @@ export default function SignUp() {
       email: "",
       username: "",
       password: "",
-      confirmPassword: "",
+     
     },
 
     validate: (values) => {
@@ -184,7 +184,7 @@ export default function SignUp() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Typography
                   variant="subtitle1"
                   sx={{
@@ -222,7 +222,7 @@ export default function SignUp() {
                     ),
                   }}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
